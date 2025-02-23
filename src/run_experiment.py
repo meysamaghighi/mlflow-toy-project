@@ -1,11 +1,11 @@
 import mlflow
 import optuna
-from src.train import train_model
+from train import train_model
 
 mlflow.set_experiment("mlflow_toy_experiment")
 
 def objective(trial):
-    n_estimators = trial.suggest_int("n_estimators", 50, 200)
+    n_estimators = trial.suggest_int("n_estimators", 1, 8)
     train_model(n_estimators)
     return mlflow.get_run(mlflow.last_active_run().info.run_id).data.metrics["accuracy"]
 
